@@ -15,6 +15,51 @@
         .config-section { background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
         .config-label { font-size: 0.9rem; font-weight: 500; margin-top: 10px; }
         .config-value { font-weight: bold; color: #0d6efd; }
+        
+        /* Enhanced slider styling */
+        .form-range {
+            height: 8px;
+            border-radius: 5px;
+        }
+        
+        .form-range::-webkit-slider-track {
+            background: linear-gradient(to right, #0d6efd 0%, #0d6efd 100%);
+            border-radius: 5px;
+            height: 8px;
+            border: none;
+        }
+        
+        .form-range::-moz-range-track {
+            background: linear-gradient(to right, #0d6efd 0%, #0d6efd 100%);
+            border-radius: 5px;
+            height: 8px;
+            border: none;
+        }
+        
+        .form-range::-webkit-slider-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #0d6efd;
+            cursor: pointer;
+            margin-top: -6px;
+        }
+        
+        .form-range::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #0d6efd;
+            cursor: pointer;
+        }
+        
+        .form-range::-moz-range-progress {
+            background: #0d6efd;
+            border-radius: 5px;
+            height: 8px;
+        }
     </style>
 </head>
 <body>
