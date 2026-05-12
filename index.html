@@ -291,8 +291,10 @@
                         const cSim = compareStrings(p._customer, c._customer);
                         const aSim = compareStrings(p._address, c._address);
                         const dDiff = Math.abs(p._dist - c._dist);
+                        const companyMatch = p._driverAddr === c._driverAddr;
 
-                        if (cSim > config.nameThreshold && aSim > config.addressThreshold) { isMatch = true; matchType = "Name/Addr"; } 
+                        if (companyMatch && cSim > config.nameThreshold && aSim > config.addressThreshold) { isMatch = true; matchType = "Company/Name/Addr"; } 
+                        else if (cSim > config.nameThreshold && aSim > config.addressThreshold) { isMatch = true; matchType = "Name/Addr"; } 
                         else if (cSim > config.nameThreshold && dDiff <= config.distanceThreshold) { isMatch = true; matchType = "Name/Dist"; }
                     } else if (p._isIBT && c._isIBT) {
                         if (p.Sending_Store && c.Sending_Store &&
