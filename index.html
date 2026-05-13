@@ -8,214 +8,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
     <style>
-        /* Updated Styles for Logistics Processor */
-body { 
-    background-color: #0f1115; 
-    font-family: 'Inter', 'Segoe UI', sans-serif; 
-    color: #e2e8f0;
-    margin: 0;
-    padding: 2rem;
-}
-
-.card { 
-    background: #1a1d23;
-    border: 1px solid #2d333b; 
-    border-radius: 4px; /* Sharper edges for a professional look */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
-    padding: 1.5rem;
-}
-
-.drop-zone { 
-    border: 2px dashed #38bdf8; /* Uses the cyan accent color */
-    border-radius: 4px; 
-    padding: 40px; 
-    text-align: center; 
-    background: #14171c; 
-    color: #94a3b8;
-    cursor: pointer; 
-    transition: all 0.2s ease;
-}
-
-.drop-zone:hover {
-    background: #1a1d23;
-    border-color: #7dd3fc;
-    color: #e2e8f0;
-}
-
-.log-container { 
-    background: #000000; /* Deep black for high-contrast logs */
-    color: #4ade80; 
-    padding: 15px; 
-    border-radius: 4px; 
-    height: 350px; 
-    overflow-y: auto; 
-    font-family: 'Fira Code', monospace; /* "Fira Code" or "Consolas" for data density */
-    font-size: 0.8rem; 
-    border: 1px solid #2d333b;
-    line-height: 1.4;
-}
-
-.config-section { 
-    background: #14171c; 
-    padding: 15px; 
-    border-radius: 4px; 
-    border: 1px solid #2d333b;
-    margin-bottom: 20px; 
-}
-
-.config-label { 
-    font-size: 0.75rem; 
-    text-transform: uppercase; 
-    letter-spacing: 0.05em;
-    font-weight: 600; 
-    color: #8c9fbb;
-    margin-top: 10px; 
-}
-
-.config-value { 
-    font-weight: bold; 
-    color: #38bdf8; /* Accent color consistency */
-    font-size: 0.9rem;
-}
-        
-        /* Enhanced slider styling */
-        .form-range {
-            height: 8px;
-            border-radius: 5px;
-        }
-        
-        .form-range::-webkit-slider-track {
-            background: linear-gradient(to right, #0d6efd 0%, #0d6efd 100%);
-            border-radius: 5px;
-            height: 8px;
-            border: none;
-        }
-        
-        .form-range::-moz-range-track {
-            background: linear-gradient(to right, #0d6efd 0%, #0d6efd 100%);
-            border-radius: 5px;
-            height: 8px;
-            border: none;
-        }
-        
-        .form-range::-webkit-slider-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: white;
-            border: 3px solid #0d6efd;
-            cursor: pointer;
-            margin-top: -6px;
-        }
-        
-        .form-range::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: white;
-            border: 3px solid #0d6efd;
-            cursor: pointer;
-        }
-        
-        .form-range::-moz-range-progress {
-            background: #0d6efd;
-            border-radius: 5px;
-            height: 8px;
-        }
-
-        .back-btn {
-    position: fixed;
-    top: 1.5rem;
-    left: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    text-decoration: none;
-    
-    /* Colors matching your existing palette */
-    color: #94a3b8; 
-    background: #1a1d23;
-    border: 1px solid #2d333b;
-    border-radius: 4px;
-    
-    padding: 0.5rem 0.8rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    transition: all 0.2s ease-in-out;
-    z-index: 1000; /* Keeps it above logs and cards */
-}
-
-.back-btn:hover {
-    border-color: #38bdf8; /* Accent color */
-    color: #e2e8f0;
-    background: #1e252e;
-    transform: translateX(-2px);
-}
-
-.back-btn svg {
-    transition: transform 0.2s ease;
-}
-
-.back-btn:hover svg {
-    transform: translateX(-3px);
-}
-
-/* Add a bit of top padding to your main container 
-   to ensure the button doesn't overlap your header */
-.container {
-    margin-top: 2rem;
-}
-
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
+        .card { border: none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .drop-zone { border: 2px dashed #0d6efd; border-radius: 10px; padding: 60px; text-align: center; background: white; cursor: pointer; }
+        .log-container { background: #1e1e1e; color: #4ade80; padding: 20px; border-radius: 8px; height: 350px; overflow-y: auto; font-family: monospace; font-size: 0.85rem; }
     </style>
 </head>
 <body>
-
-    <a href="index.html" class="back-btn">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M19 12H5M12 19l-7-7 7-7"/>
-    </svg>
-    <span>Dashboard</span>
-</a>
 
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <div class="card p-4">
                 <h3 class="text-primary mb-4">Logistics Processor V4.7</h3>
-                
-                <!-- CONFIG SECTION -->
-                <div class="config-section">
-                    <h5 class="text-secondary mb-3">⚙️ Fuzzy Match Settings</h5>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="config-label">Customer Name Similarity</div>
-                            <input type="range" id="nameThreshold" class="form-range" min="0.5" max="1.0" step="0.01" value="0.88">
-                            <small class="config-value" id="nameValue">0.88</small>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="config-label">Address Similarity</div>
-                            <input type="range" id="addressThreshold" class="form-range" min="0.5" max="1.0" step="0.01" value="0.85">
-                            <small class="config-value" id="addressValue">0.85</small>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="config-label">Distance Threshold (km)</div>
-                            <input type="range" id="distanceThreshold" class="form-range" min="0" max="50" step="1" value="10">
-                            <small class="config-value" id="distanceValue">10</small>
-                        </div>
-                    </div>
-                </div>
-                
                 <div id="dropZone" class="drop-zone mb-4">
                     <h5>Drop Manifest Here</h5>
-                    <p class=" mb-0">Please upload your .xlsx file</p>
+                    <p class="text-muted mb-0">Please upload your .xlsx file</b></p>
                     <input type="file" id="fileInput" accept=".xlsx, .xls" hidden>
                 </div>
                 <div class="d-flex gap-3 mb-4">
-                    <button id="processBtn" class="btn btn-success btn-lg flex-grow-1" disabled>Generate Processed File</button>
-                    <button id="templateBtn" class="btn btn-outline-primary btn-lg flex-grow-1">Download Template</button>
-                </div>
+    <button id="processBtn" class="btn btn-success btn-lg flex-grow-1" disabled>Generate Processed File</button>
+    <button id="templateBtn" class="btn btn-outline-primary btn-lg flex-grow-1">Download Template</button>
+</div>
                 <div id="log" class="log-container">Ready.</div>
             </div>
         </div>
@@ -223,13 +37,6 @@ body {
 </div>
 
 <script>
-    // Fuzzy match configuration
-    const config = {
-        nameThreshold: 0.88,
-        addressThreshold: 0.85,
-        distanceThreshold: 10
-    };
-
     // Helper to format Excel Dates or String Dates to YYYY-MM-DD
     function formatToShortDate(val) {
         if (!val) return "";
@@ -249,12 +56,6 @@ body {
         return (2.0 * intersect) / (a.length + b.length - 2);
     }
 
-    function calculateConfidence(matchType, cSim) {
-        if (matchType === "Name/Addr") return 0.95 + (cSim * 0.05);
-        if (matchType === "Name/Dist") return 0.90 + (cSim * 0.05);
-        return 1.0;
-    }
-
     const logBox = document.getElementById('log');
     const log = (msg) => {
         const d = document.createElement('div');
@@ -268,31 +69,16 @@ body {
     const processBtn = document.getElementById('processBtn');
     let rawData = null;
 
-    // CONFIG EVENT LISTENERS
-    document.getElementById('nameThreshold').oninput = (e) => {
-        config.nameThreshold = parseFloat(e.target.value);
-        document.getElementById('nameValue').textContent = e.target.value;
-    };
-
-    document.getElementById('addressThreshold').oninput = (e) => {
-        config.addressThreshold = parseFloat(e.target.value);
-        document.getElementById('addressValue').textContent = e.target.value;
-    };
-
-    document.getElementById('distanceThreshold').oninput = (e) => {
-        config.distanceThreshold = parseFloat(e.target.value);
-        document.getElementById('distanceValue').textContent = e.target.value;
-    };
-
     // 1. CLICK TO UPLOAD
     dropZone.onclick = () => fileInput.click();
 
     // 2. DRAG & DROP HANDLERS
+    // Prevent browser from opening the file when dropped
     ['dragover', 'dragenter'].forEach(eventName => {
         dropZone.addEventListener(eventName, (e) => {
             e.preventDefault();
             e.stopPropagation();
-            dropZone.style.borderColor = "#198754";
+            dropZone.style.borderColor = "#198754"; // Green highlight
             dropZone.style.background = "#f8fffb";
         });
     });
@@ -301,7 +87,7 @@ body {
         dropZone.addEventListener(eventName, (e) => {
             e.preventDefault();
             e.stopPropagation();
-            dropZone.style.borderColor = "#0d6efd";
+            dropZone.style.borderColor = "#0d6efd"; // Reset blue
             dropZone.style.background = "white";
         });
     });
@@ -330,15 +116,7 @@ body {
                 const data = new Uint8Array(event.target.result);
                 const wb = XLSX.read(data, { type: 'array', cellDates: true });
                 rawData = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
-                
-                if (rawData.length === 0) {
-                    log("Error: File is empty");
-                    processBtn.disabled = true;
-                    return;
-                }
-                
                 log(`Successfully loaded ${rawData.length} rows.`);
-                log(`Config: Name=${config.nameThreshold} | Address=${config.addressThreshold} | Distance=${config.distanceThreshold}km`);
                 processBtn.disabled = false;
             } catch (err) {
                 log(`Error reading file: ${err.message}`);
@@ -364,7 +142,7 @@ body {
                     ...row,
                     _internalID: cleanID,
                     _isIBT: cleanID.startsWith('46'),
-                    _shortDate: formatToShortDate(row.Booking_Date),
+                    _shortDate: formatToShortDate(row.Booking_Date), // Normalize to YYYY-MM-DD
                     _tripID: String(row.ID || ""),
                     _dist: parseFloat(row.Delivery_Distance || 0),
                     _weight: parseFloat(row.Delivery_Weight || 0),
@@ -400,20 +178,17 @@ body {
                 let isMatch = false;
                 let matchType = "";
 
+                // Use the normalized Short Date for comparison
                 if (p._shortDate === c._shortDate) {
                     if (!p._isIBT && !c._isIBT) {
                         const cSim = compareStrings(p._customer, c._customer);
                         const aSim = compareStrings(p._address, c._address);
                         const dDiff = Math.abs(p._dist - c._dist);
-                        const companyMatch = p._driverAddr === c._driverAddr;
 
-                        if (companyMatch && cSim > config.nameThreshold && aSim > config.addressThreshold) { isMatch = true; matchType = "Company/Name/Addr"; } 
-                        else if (cSim > config.nameThreshold && aSim > config.addressThreshold) { isMatch = true; matchType = "Name/Addr"; } 
-                        else if (cSim > config.nameThreshold && dDiff <= config.distanceThreshold) { isMatch = true; matchType = "Name/Dist"; }
+                        if (cSim > 0.88 && aSim > 0.85) { isMatch = true; matchType = "Name/Addr"; } 
+                        else if (cSim > 0.88 && dDiff <= 10) { isMatch = true; matchType = "Name/Dist"; }
                     } else if (p._isIBT && c._isIBT) {
-                        if (p.Sending_Store && c.Sending_Store &&
-                            p.Sending_Store === c.Sending_Store && 
-                            p.Receiving_Store === c.Receiving_Store) {
+                        if (p.Sending_Store === c.Sending_Store && p.Receiving_Store === c.Receiving_Store) {
                             isMatch = true; matchType = "IBT Route";
                         }
                     }
@@ -424,7 +199,7 @@ body {
                     group.subTrips.push(c._tripID);
                     group.totalW += c._weight;
                     group.reason = `Grouped via ${matchType}`;
-                    group.confValue = calculateConfidence(matchType, cSim);
+                    group.confValue = 0.95;
                     processedRefs.add(c._internalID);
                 }
             }
@@ -472,6 +247,7 @@ body {
                 h_addr: r._address,
                 h_dist: r._dist,
                 h_weight: r.totalW,
+                // Concatenation logic using // delimiter
                 h_ginv: r.subInvoices.length > 0 ? r.subInvoices.join(' // ') : "",
                 h_gtrip: r.subTrips.length > 0 ? r.subTrips.join(' // ') : "",
                 h_conf: (r.confValue * 100) + "%",
@@ -481,7 +257,7 @@ body {
             [d_le, d_gt, [{}], i_le, i_gt].forEach(subset => {
                 subset.forEach(r => {
                     if (r._internalID) sheet.addRow(mapRow(r));
-                    else sheet.addRow({});
+                    else sheet.addRow({}); // Empty spacer row
                 });
             });
 
@@ -496,54 +272,46 @@ body {
         log("Process Complete!");
         processBtn.disabled = false;
     };
-
     document.getElementById('templateBtn').onclick = async () => {
-        const wb = new ExcelJS.Workbook();
-        const sheet = wb.addWorksheet('Manifest Template');
+    const wb = new ExcelJS.Workbook();
+    const sheet = wb.addWorksheet('Manifest Template');
 
-        sheet.columns = [
-            { header: 'Booking_Date', key: 'a' },
-            { header: 'Shipper_Ref', key: 'b' },
-            { header: 'ID', key: 'c' },
-            { header: 'Customer', key: 'd' },
-            { header: 'To_Location', key: 'e' },
-            { header: 'Delivery_Distance', key: 'f' },
-            { header: 'Delivery_Weight', key: 'g' },
-            { header: 'Sending_Store', key: 'h' },
-            { header: 'Receiving_Store', key: 'i' },
-            { header: 'Driver_Address', key: 'j' }
-        ];
+    // Define the exact headers the tool looks for
+    sheet.columns = [
+        { header: 'Booking_Date', key: 'a' },
+        { header: 'Shipper_Ref', key: 'b' },
+        { header: 'ID', key: 'c' },
+        { header: 'Customer', key: 'd' },
+        { header: 'To_Location', key: 'e' },
+        { header: 'Delivery_Distance', key: 'f' },
+        { header: 'Delivery_Weight', key: 'g' },
+        { header: 'Sending_Store', key: 'h' },
+        { header: 'Receiving_Store', key: 'i' },
+        { header: 'Driver_Address', key: 'j' }
+    ];
 
-        sheet.addRow({
-            a: new Date().toISOString().split('T')[0],
-            b: '2100000001',
-            c: '300001',
-            d: 'Sample Customer',
-            e: '123 Delivery Lane, Cape Town',
-            f: 10.5,
-            g: 2.5,
-            h: 'C526',
-            i: '',
-            j: 'Company name'
-        });
+    // Add one row of sample data so the user sees the format
+    sheet.addRow({
+        a: new Date().toISOString().split('T')[0],
+        b: '2100000001',
+        c: '300001',
+        d: 'Sample Customer',
+        e: '123 Delivery Lane, Cape Town',
+        f: 10.5,
+        g: 2.5,
+        h: 'C526',
+        i: '',
+        j: 'Company name'
+    });
 
-        sheet.getRow(1).font = { bold: true };
+    sheet.getRow(1).font = { bold: true };
 
-        const buffer = await wb.xlsx.writeBuffer();
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(new Blob([buffer]));
-        a.download = `Upload_Template.xlsx`;
-        a.click();
-    };
+    const buffer = await wb.xlsx.writeBuffer();
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([buffer]));
+    a.download = `Upload_Template.xlsx`;
+    a.click();
+};
 </script>
-    <footer class="py-2 bg-dark fixed-bottom">
-  <div class="container-fluid px-4">
-    <div class="d-flex justify-content-end align-items-center">
-      <span class="text-bright  small">
-        &copy; 2026 GlitchedDesigns. All rights reserved.
-      </span>
-    </div>
-  </div>
-</footer>
 </body>
 </html>
