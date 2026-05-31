@@ -48,10 +48,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 32px 16px 48px;
+            padding: 32px 16px 64px;
         }
 
-        /* ── Header ──────────────────────────────────────────────── */
+        /* ── Header ────────────────────────────────────────────── */
         .site-header {
             width: 100%;
             max-width: 720px;
@@ -102,7 +102,7 @@
             border-radius: 99px;
         }
 
-        /* ── Card ────────────────────────────────────────────────── */
+        /* ── Card ──────────────────────────────────────────────── */
         .card {
             width: 100%;
             max-width: 720px;
@@ -127,7 +127,7 @@
             margin-bottom: 10px;
         }
 
-        /* ── Drop Zone ───────────────────────────────────────────── */
+        /* ── Drop Zone ──────────────────────────────────────────── */
         .drop-zone {
             border: 1.5px dashed var(--border);
             border-radius: var(--radius);
@@ -259,7 +259,7 @@
             color: var(--text-1);
         }
 
-        /* ── Log Panel ───────────────────────────────────────────── */
+        /* ── Log Panel ──────────────────────────────────────────── */
         .log-header {
             display: flex;
             align-items: center;
@@ -340,14 +340,14 @@
         .log-msg-warn    { color: #fcd34d; }
         .log-msg-error   { color: #fca5a5; }
 
-        /* ── Divider ─────────────────────────────────────────────── */
+        /* ── Divider ───────────────────────────────────────────── */
         .divider {
             height: 1px;
             background: var(--border);
             margin: 28px 0;
         }
 
-        /* ── Info strip ──────────────────────────────────────────── */
+        /* ── Info strip ────────────────────────────────────────── */
         .info-strip {
             display: flex;
             align-items: center;
@@ -363,7 +363,7 @@
 
         .info-strip svg { flex-shrink: 0; }
 
-        /* ── Footer ──────────────────────────────────────────────── */
+        /* ── Card Footer ────────────────────────────────────────── */
         .card-footer {
             padding: 14px 32px;
             background: var(--surface-2);
@@ -396,7 +396,7 @@
 
         .btn-instructions:hover { background: var(--blue-light); }
 
-        /* ── Modal ───────────────────────────────────────────────── */
+        /* ── Modal ─────────────────────────────────────────────── */
         .modal-backdrop {
             position: fixed;
             inset: 0;
@@ -496,13 +496,42 @@
 
         .step-text strong { color: var(--text-1); font-weight: 600; }
 
+        /* ── Floating Footer ────────────────────────────────────── */
+        .floating-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 38px;
+            padding: 0 20px;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            font-size: 12px;
+            color: var(--text-3);
+            z-index: 50;
+        }
+
+        .floating-footer a {
+            color: var(--blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .floating-footer a:hover { text-decoration: underline; }
+
         .hidden { display: none !important; }
     </style>
 </head>
 
 <body>
 
-    <!-- ── Header ───────────────────────────────────── -->
+    <!-- ── Header ─────────────────────────────────────────── -->
     <header class="site-header">
         <div class="logo">
             <div class="logo-icon">
@@ -516,7 +545,7 @@
         <span class="badge-version">V4.8 Stable</span>
     </header>
 
-    <!-- ── Main Card ─────────────────────────────────── -->
+    <!-- ── Main Card ─────────────────────────────────────────── -->
     <main class="card">
         <div class="card-body">
 
@@ -598,7 +627,7 @@
         </footer>
     </main>
 
-    <!-- ── Instructions Modal ────────────────────────── -->
+    <!-- ── Instructions Modal ───────────────────────────────────── -->
     <div id="overlay" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal">
             <div class="modal-header">
@@ -635,8 +664,17 @@
         </div>
     </div>
 
+    <!-- ── Floating Copyright Footer ────────────────────────────── -->
+    <footer class="floating-footer">
+        <span>&copy; 2026 Glitched Designs</span>
+        <span>&middot;</span>
+        <a href="https://github.com/glitchedfelix" target="_blank" rel="noopener">GitHub</a>
+        <span>&middot;</span>
+        <a href="https://glitchedfelix.github.io/Personal-Portfolio-Website/" target="_blank" rel="noopener">Portfolio</a>
+    </footer>
+
 <script>
-    // ── Helpers ──────────────────────────────────────────────────────────────
+    // ── Helpers ────────────────────────────────────────────────────────────────────────
     function formatToShortDate(val) {
         if (!val) return "";
         let d = new Date(val);
@@ -654,7 +692,7 @@
         return (2.0 * intersect) / (a.length + b.length - 2);
     }
 
-    // ── Log ──────────────────────────────────────────────────────────────────
+    // ── Log ────────────────────────────────────────────────────────────────────────────
     const logBox  = document.getElementById('log');
     const logDot  = document.getElementById('logDot');
 
@@ -678,7 +716,7 @@
         logDot.classList.remove('active');
     };
 
-    // ── Drop Zone ────────────────────────────────────────────────────────────
+    // ── Drop Zone ────────────────────────────────────────────────────────────────
     const fileInput  = document.getElementById('fileInput');
     const dropZone   = document.getElementById('dropZone');
     const processBtn = document.getElementById('processBtn');
@@ -734,7 +772,7 @@
         reader.readAsArrayBuffer(file);
     }
 
-    // ── Process ──────────────────────────────────────────────────────────────
+    // ── Process ──────────────────────────────────────────────────────────────────
     processBtn.onclick = async () => {
         processBtn.disabled = true;
         logDot.classList.add('active');
@@ -875,7 +913,7 @@
         processBtn.disabled = false;
     };
 
-    // ── Template ─────────────────────────────────────────────────────────────
+    // ── Template ──────────────────────────────────────────────────────────────────────
     document.getElementById('templateBtn').onclick = async () => {
         const wb    = new ExcelJS.Workbook();
         const sheet = wb.addWorksheet('Manifest Template');
@@ -911,7 +949,7 @@
         a.click();
     };
 
-    // ── Modal ────────────────────────────────────────────────────────────────
+    // ── Modal ──────────────────────────────────────────────────────────────────────────
     const overlay = document.getElementById('overlay');
     const openModal  = () => { overlay.classList.add('open');  document.body.style.overflow = 'hidden'; };
     const closeModal = () => { overlay.classList.remove('open'); document.body.style.overflow = ''; };
