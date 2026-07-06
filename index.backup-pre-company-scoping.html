@@ -747,10 +747,8 @@
             const cleanID   = String(refSource).replace(/\.0$/, "").trim();
             if (!cleanID) return;
 
-            const company  = String(row.Driver_Address || "Unassigned");
-            const bucketKey = `${cleanID}::${company}`;
-            if (!buckets.has(bucketKey)) buckets.set(bucketKey, []);
-            buckets.get(bucketKey).push(row);
+            if (!buckets.has(cleanID)) buckets.set(cleanID, []);
+            buckets.get(cleanID).push(row);
         });
 
         const cleanedData = [];
@@ -758,7 +756,7 @@
         let mergeCount = 0;
         let mergeRowsTotal = 0;
 
-        buckets.forEach((rows) => {
+        buckets.forEach((rows, cleanID) => {
             const seenSignatures = new Set();
             const distinctRows = [];
             rows.forEach(row => {
@@ -772,7 +770,6 @@
             });
 
             const base = distinctRows[0];
-            const cleanID = String(base.Shipper_Ref || base.External_ID || "").replace(/\.0$/, "").trim();
             const record = {
                 ...base,
                 _internalID: cleanID,
