@@ -830,7 +830,8 @@
 
         for (let i = 0; i < cleanedData.length; i++) {
             const p = cleanedData[i];
-            if (processedRefs.has(p._internalID)) continue;
+            const pKey = `${p._internalID}::${p._driverAddr}`;
+            if (processedRefs.has(pKey)) continue;
 
             let group = {
                 ...p,
@@ -840,11 +841,12 @@
                 reason: p._mergedTripIDs ? `Merged ${p._mergedTripIDs.length + 1} rows (same ID)` : "No Grouping done",
                 confValue: 1.0
             };
-            processedRefs.add(p._internalID);
+            processedRefs.add(pKey);
 
             for (let j = i + 1; j < cleanedData.length; j++) {
                 const c = cleanedData[j];
-                if (processedRefs.has(c._internalID)) continue;
+                const cKey = `${c._internalID}::${c._driverAddr}`;
+                if (processedRefs.has(cKey)) continue;
 
                 let isMatch = false, matchType = "";
 
@@ -870,7 +872,7 @@
                         ? `${group.reason} + Grouped via ${matchType}`
                         : `Grouped via ${matchType}`;
                     group.confValue = 0.95;
-                    processedRefs.add(c._internalID);
+                    processedRefs.add(cKey);
                 }
             }
             groupedResults.push(group);
