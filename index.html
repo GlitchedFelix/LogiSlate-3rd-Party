@@ -792,7 +792,7 @@
                 _dist:       parseFloat(base.Delivery_Distance || 0),
                 _weight:     parseFloat(base.Delivery_Weight || 0),
                 _customer:   String(base.Customer || ""),
-                _address:    String(base.To_Location || ""),
+                _address:    cleanID.startsWith('46') ? String(base.Receiving_Store || base.To_Location || "") : String(base.To_Location || ""),
                 _driverAddr: String(base.Driver_Address || "Unassigned")
             };
 
